@@ -14,21 +14,21 @@ export default class RsvpForm extends React.Component {
     plus_one: false,
   };
 
-  // onSubmitAllGuestInfo = (e)=>{
-  //   e.preventDefault();
-  //   fetch(`${Config.API_ENDPOINT}/update`, {
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body:JSON.stringify({
-  //       firstname:this.state.firstname,
-  //       lastname:this.state.lastname,
-  //       response:this.state.response,
-  //       plus_one:this.state.plus_one,
-  //       notes:this.state.note
-  //     })
-  //   })
-  // }
+  onSubmitAllGuestInfo = (e) => {
+    e.preventDefault();
+    fetch(`${Config.API_ENDPOINT}/update`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstname: this.state.firstname,
+        lastname: this.state.lastname,
+        response: this.state.response,
+        plus_one: this.state.plus_one,
+        notes: this.state.note,
+      }),
+    });
+  };
   onSubmitGuestName = (e) => {
     e.preventDefault();
     fetch(`${Config.API_ENDPOINT}/rsvp`, {
@@ -58,11 +58,11 @@ export default class RsvpForm extends React.Component {
   updateLastname = (value) => {
     this.setState({ lastname: value });
   };
-  updateResponse = (e) => {
-    this.setState({ response: e.target.checked });
+  updateResponse = (value) => {
+    this.setState({ response: value });
   };
-  updatePlusOne = (e) => {
-    this.setState({ plus_one: e.target.checked });
+  updatePlusOne = (value) => {
+    this.setState({ plus_one: value });
   };
   updateNotes = (e) => {
     this.setState({ note: e.target.value });
@@ -83,35 +83,30 @@ export default class RsvpForm extends React.Component {
       </div>
     );
     const status = (
-      <div>
-        <label htmlFor="status">Attending? (Y/N)</label>
-        <input
-          type="checkbox"
-          checked={this.state.response}
-          onChange={(e) => this.updateResponse(e)}
-          id="status"
-          required
-        />
-      </div>
-    );
-    const plusPerson = (
-      <div>
-        <label htmlFor="plus-person">Plus One? (Y/N)</label>
-        <input
-          type="checkbox"
-          id="plus-person"
-          required
-          checked={this.state.plus_one}
-          onChange={(e) => this.updatePlusOne(e)}
-        />
+      <div onChange={(e) => this.updateResponse(e.target.value)}>
+        <p>Are you attending?</p>
+        <label htmlFor="response">Yes</label>
+        <input id="response" type="radio" name="response" value={true} />
+        <label htmlFor="response">No</label>
+        <input id="response" type="radio" name="response" value={false} />
       </div>
     );
 
+    const plusPerson = (
+      <div onChange={(e) => this.updatePlusOne(e.target.value)}>
+        <p>Do you have a plus one?</p>
+        <label htmlFor="status">Yes</label>
+        <input id="status" type="radio" value={true} name="status" />
+        <label htmlFor="status">No</label>
+        <input id="status" type="radio" value={false} name="status" />
+      </div>
+    );
+    console.log("this is response", this.state.response);
     const people = this.state.data.map((user, id) => {
       return (
         <li className="people" key={id}>
           {user.firstname} {user.lastname} {status}
-          {user.plus_one ? plusPerson : ""} {noteField}
+          {user.plus_one ? plusPerson : ""}
         </li>
       );
     });
@@ -119,8 +114,9 @@ export default class RsvpForm extends React.Component {
       <div>
         {this.state.success ? (
           <div>
-            <form>
+            <form onSubmit={(e) => this.onSubmitAllGuestInfo(e)}>
               {people}
+              {noteField}
               <button>Submit</button>
             </form>
           </div>

@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
-import './Header.css'
+import "./Header.css";
 function Header() {
   return (
     <section className="centering">
-      <Link to="/">Home</Link>
-      <Link to="/rsvp">RSVP</Link>
+      <div>
+        <Link to="/">Home</Link>
+        <Link to="/story">Our story</Link>
+        <Link to="/rsvp">RSVP</Link>
+      </div>
+      <div>
+        <h1>M & V Wedding</h1>
+      </div>
     </section>
   );
 }
