@@ -5,7 +5,7 @@ import './Story.css'
 export default class Story extends React.Component {
   render() {
     return (
-      <div className="middle" style={{ width: "800px", height: "950px" }}>
+      <div style={{ width: "800px", height: "950px" }}>
         <Chrono
           items={data}
           slideShow
