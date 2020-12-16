@@ -121,7 +121,7 @@ export default class RsvpForm extends React.Component {
             </form>
           </div>
         ) : (
-          <form onSubmit={(e) => this.onSubmitGuestName(e)}>
+          <form className="fields" onSubmit={(e) => this.onSubmitGuestName(e)}>
             <label htmlFor="firstname">Firstname:</label>
             <input
               id="firstname"
@@ -140,7 +140,7 @@ export default class RsvpForm extends React.Component {
               maxLength="250"
               required
             />
-            <button>Submit</button>
+            <button className="midd">Submit</button>
           </form>
         )}
       </div>

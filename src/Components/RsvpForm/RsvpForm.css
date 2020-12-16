@@ -1,3 +1,11 @@
 .people{
     list-style-type: none;
 }
+
+.fields{
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    margin:10px 20px;
+}
+
